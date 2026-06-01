@@ -56,11 +56,10 @@
         window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
     'size': 'normal',
     'callback': (response) => {
-        // reCAPTCHA solved!
+        
     }
 });
 
-        // Step 1: Send OTP
         document.getElementById('btn-send').addEventListener('click', () => {
             const phone = document.getElementById('phone').value;
             signInWithPhoneNumber(auth, phone, window.recaptchaVerifier)
@@ -72,14 +71,14 @@
                 }).catch(err => alert(err.message));
         });
 
-        // Step 2: Verify and Save to Database
+        
         document.getElementById('btn-verify').addEventListener('click', async () => {
             const code = document.getElementById('otp').value;
             const username = document.getElementById('user').value;
             
             try {
                 await confirmationResult.confirm(code);
-                // Save data to Firestore
+            
                 await setDoc(doc(db, "users", username), {
                     username: username,
                     email: document.getElementById('email').value,
@@ -87,7 +86,7 @@
                     phone: document.getElementById('phone').value
                 });
                 alert("Account Created! Use your username to login.");
-                window.location.href = "index.html"; // Wapas Login par bhej do
+                window.location.href = "index.html"; 
             } catch (err) { alert("Invalid OTP!"); }
         });
     </script>
